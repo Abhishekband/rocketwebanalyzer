@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Resume Screening</title>
+
+  <link rel="stylesheet" href="frontend/auth/style.css">
+  <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+    crossorigin="anonymous" />
+    <link rel="icon" type="image/png" href="frontend/auth/user.png">
+
+
+  <!-- ROLE SELECTOR FINAL FIX -->
+  <style>
+    .role-field {
+      margin-top: 10px;
+    }
+
+    .role-label {
+      display: block;
+      margin-bottom: 10px;
+      font-size: 14px;
+      color: rgba(255,255,255,0.75);
+    }
+
+    .role-toggle {
+      display: flex;
+      gap: 16px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid rgba(255,255,255,0.25);
+    }
+
+    .role-pill {
+      flex: 1;
+      height: 42px;
+      border-radius: 22px;
+      border: 1px solid rgba(255,255,255,0.25);
+      background: rgba(255,255,255,0.08);
+      color: #fff;
+      font-size: 14px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 0 14px;
+      white-space: nowrap;
+    }
+
+    .role-pill i {
+      font-size: 14px;
+      flex-shrink: 0;
+    }
+
+    .role-pill:hover {
+      background: rgba(255,255,255,0.15);
+    }
+
+    .role-pill.active {
+      background: linear-gradient(135deg, #00eaff, #0077ff);
+      border-color: transparent;
+      box-shadow: 0 0 14px rgba(0,234,255,0.7);
+      font-weight: 600;
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="auth-wrapper">
+  <div class="background-shape"></div>
+  <div class="secondary-shape"></div>
+
+  <!-- LOGIN PANEL -->
+  <div class="credentials-panel signin">
+    <h2 class="slide-element">Login</h2>
+
+    <form id="loginForm">
+      <div class="field-wrapper slide-element">
+        <input type="email" id="loginEmail" required>
+        <label>Email</label>
+        <i class="fa-solid fa-user"></i>
+      </div>
+
+      <div class="field-wrapper slide-element">
+        <input type="password" id="loginPassword" required>
+        <label>Password</label>
+        <i class="fa-solid fa-lock"></i>
+      </div>
+
+      <div class="field-wrapper slide-element">
+        <button class="submit-button" type="submit">Login</button>
+      </div>
+
+      <div class="switch-link slide-element">
+        <p>Don't have an account?<br>
+          <a href="#" class="register-trigger">Sign Up</a>
+        </p>
+      </div>
+    </form>
+  </div>
+
+  <div class="welcome-section signin">
+    <h2 class="slide-element">WELCOME BACK!</h2>
+  </div>
+
+  <!-- REGISTER PANEL -->
+  <div class="credentials-panel signup">
+    <h2 class="slide-element">Register</h2>
+
+    <form id="registerForm">
+      <div class="field-wrapper slide-element">
+        <input type="email" id="registerEmail" required>
+        <label>Email</label>
+        <i class="fa-solid fa-envelope"></i>
+      </div>
+
+      <div class="field-wrapper slide-element">
+        <input type="password" id="registerPassword" required>
+        <label>Password</label>
+        <i class="fa-solid fa-lock"></i>
+      </div>
+
+      <!-- ROLE SELECTOR (FIXED) -->
+      <div class="field-wrapper slide-element role-field">
+        <!-- <span class="role-label">Role</span> -->
+
+        <div class="role-toggle">
+          <button type="button" class="role-pill active" data-role="candidate">
+            <i class="fa-solid fa-user"></i> Candidate
+          </button>
+          <button type="button" class="role-pill" data-role="hr">
+            <i class="fa-solid fa-user-tie"></i> HR
+          </button>
+        </div>
+      </div>
+
+      <!-- SINGLE ROLE INPUT -->
+      <input type="hidden" id="role" value="candidate">
+
+      <div class="field-wrapper slide-element">
+        <button class="submit-button" type="submit">Register</button>
+      </div>
+
+      <div class="switch-link slide-element">
+        <p>Already have an account?<br>
+          <a href="#" class="login-trigger">Sign In</a>
+        </p>
+      </div>
+    </form>
+  </div>
+
+  <div class="welcome-section signup">
+    <h2 class="slide-element">WELCOME!</h2>
+  </div>
+</div>
+
+<script type="module" src="frontend/auth/auth.js"></script>
+<script src="frontend/auth/style.js"></script>
+
+<!-- ROLE SELECT LOGIC -->
+<script>
+  const roleInput = document.getElementById("role");
+  const roleButtons = document.querySelectorAll(".role-pill");
+
+  roleButtons.forEach(btn => {
+    btn.addEventListener("click", () => {
+      roleButtons.forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+      roleInput.value = btn.dataset.role;
+    });
+  });
+</script>
+
+<!-- TOAST CONTAINER -->
+<div id="toast-container"></div>
+
+<script type="module" src="./frontend/js/tracker.js"></script>
+</body>
+</html>
