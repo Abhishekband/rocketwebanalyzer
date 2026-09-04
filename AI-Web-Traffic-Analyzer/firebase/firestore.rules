@@ -1,0 +1,45 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Website information
+    match /websites/{websiteId} {
+      allow read, write: if request.auth != null;
+    }
+
+    // Visitor information
+    match /visitors/{visitorId} {
+      allow create: if true;
+      allow read, update, delete: if request.auth != null;
+    }
+
+    // Session information
+    match /sessions/{sessionId} {
+      allow create: if true;
+      allow read, update, delete: if request.auth != null;
+    }
+
+    // Page view information
+    match /pageViews/{pageViewId} {
+      allow create: if true;
+      allow read, update, delete: if request.auth != null;
+    }
+
+    // Traffic sources
+    match /trafficSources/{sourceId} {
+      allow create: if true;
+      allow read, update, delete: if request.auth != null;
+    }
+
+    // AI predictions
+    match /predictions/{predictionId} {
+      allow read, write: if request.auth != null;
+    }
+
+    // Traffic anomalies
+    match /anomalies/{anomalyId} {
+      allow read, write: if request.auth != null;
+    }
+  }
+}
